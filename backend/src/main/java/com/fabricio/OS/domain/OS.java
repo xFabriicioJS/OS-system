@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 
 import com.fabricio.OS.domain.enums.Prioridade;
 import com.fabricio.OS.domain.enums.Status;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -21,10 +20,10 @@ public class OS {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    
     private LocalDateTime dataAbertura;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    
     private LocalDateTime dataFechamento;
 
     private Integer prioridade;
