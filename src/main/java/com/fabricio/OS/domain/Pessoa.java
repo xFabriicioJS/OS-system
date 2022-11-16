@@ -1,12 +1,30 @@
 package com.fabricio.OS.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 // Classe abstrata que deverá ser herdada pelas classes Cliente e Técnico
+
+@Entity
 public abstract class Pessoa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "O campo NOME é requerido")
     private String nome;
+    
+    @NotEmpty(message = "O campo CPF é requerido")
+    @CPF
     private String cpf;
+
+    @NotEmpty(message = "O campo TELEFONE é requerido")
     private String telefone;
 
     public Pessoa(Integer id, String nome, String cpf, String telefone) {

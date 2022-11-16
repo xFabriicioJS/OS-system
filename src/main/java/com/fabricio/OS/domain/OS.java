@@ -2,19 +2,43 @@ package com.fabricio.OS.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.fabricio.OS.domain.enums.Prioridade;
 import com.fabricio.OS.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+
+@Entity
 public class OS {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataAbertura;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFechamento;
+
     private Integer prioridade;
     private String observacoes;
     private Integer status;
     
+    @ManyToOne
+    //Cria uma coluna na tabela OS chamada tecnico_id com um relacionamento com o id do técnico
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
 
+    @ManyToOne
+    //Cria uma coluna na tabela OS chamada cliente_id com um relacionamento com o id do técnico
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     //Sempre que uma ordem de serviço for criada, ela terá a prioridade baixa e o status aberto
@@ -26,7 +50,7 @@ public class OS {
     }
 
 
-    public OS(Integer id, LocalDateTime dataAbertura, Prioridade prioridade,
+    public OS(Integer id, Prioridade prioridade,
             String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.setDataAbertura(LocalDateTime.now());
