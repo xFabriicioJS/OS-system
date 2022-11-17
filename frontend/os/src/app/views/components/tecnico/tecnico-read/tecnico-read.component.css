@@ -1,0 +1,19 @@
+.container{
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+table{
+    width: 100%;
+}
+
+.create button {
+    width: 100%;
+    margin: 1 rem;
+}
+
+.create h1{
+    text-align: center;
+    font-size: 2rem;
+}
