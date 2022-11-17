@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tecnico } from 'src/app/models/tecnico';
 import { TecnicoService } from 'src/app/sevices/tecnico.service';
 
 @Component({
-  selector: 'app-tecnico-create',
-  templateUrl: './tecnico-create.component.html',
-  styleUrls: ['./tecnico-create.component.css']
+  selector: 'app-tecnico-update',
+  templateUrl: './tecnico-update.component.html',
+  styleUrls: ['./tecnico-update.component.css']
 })
-export class TecnicoCreateComponent implements OnInit {
+export class TecnicoUpdateComponent implements OnInit {
+
+  id_tec = '';
 
   tecnico: Tecnico = {
     id: '',
@@ -24,29 +26,40 @@ export class TecnicoCreateComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: TecnicoService
-  ) { }
+    private service: TecnicoService,
+    private actRoute: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+    this.id_tec = this.actRoute.snapshot.paramMap.get('id')!;
+    this.findById();
+  }
+
+  findById(): void{
+    this.service.findById(this.id_tec).subscribe((resposta) => {
+      this.tecnico = resposta;
+    });
+  }
+
+  update(): void{
+    this.service.update(this.tecnico).subscribe((resposta) => {
+      this.router.navigate(['/tecnicos']);
+      this.service.message('Técnico atualizado com sucesso!');
+    }
+    , err => {
+      if(err.error.error.match('já cadastrado')){
+        this.service.message(err.error.error);
+      }else{
+        this.service.message('Erro ao atualizar técnico! Verifique os dados e tente novamente.');
+      }
+    }
   }
 
   cancel(): void {
     this.router.navigate(['/tecnicos']);
   }
 
-  create(): void{
-    this.service.create(this.tecnico).subscribe((resposta) => {
-      this.router.navigate(['/tecnicos']);
-      this.service.message('Técnico criado com sucesso!');
-    }, err => {
-      console.log(err);
-      if(err.error.error.match('já cadastrado')){
-        this.service.message(err.error.error);
-      }else{
-        this.service.message('Erro ao criar técnico! Verifique os dados e tente novamente.');
-      }
-    });
-  }
+  
 
   errorValidNome(){
     if(this.nome.invalid){
@@ -68,5 +81,6 @@ export class TecnicoCreateComponent implements OnInit {
     }
     return false;
   }
+
 
 }

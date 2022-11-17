@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -21,8 +21,11 @@ import { FooterComponent } from './views/components/templates/footer/footer.comp
 import { NavComponent } from './views/components/templates/nav/nav.component';
 import { HomeComponent } from './views/components/home/home.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { TecnicoReadComponent } from './views/components/tecnico/tecnico-read/tecnico-read.component';
 import { TecnicoCreateComponent } from './views/components/tecnico/tecnico-create/tecnico-create.component';
+import { TecnicoUpdateComponent } from './views/components/tecnico/tecnico-update/tecnico-update.component';
 
 
 
@@ -35,6 +38,7 @@ import { TecnicoCreateComponent } from './views/components/tecnico/tecnico-creat
     HomeComponent,
     TecnicoReadComponent,
     TecnicoCreateComponent,
+    TecnicoUpdateComponent,
 
   ],
   imports: [
@@ -42,9 +46,10 @@ import { TecnicoCreateComponent } from './views/components/tecnico/tecnico-creat
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatSelectModule,
-    MatInputModule,
+    MatSnackBarModule,
     MatDatepickerModule,
     MatToolbarModule,
     MatSidenavModule,
